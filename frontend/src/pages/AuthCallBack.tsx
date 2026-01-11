@@ -75,8 +75,7 @@ export default function AuthCallback() {
           });
 
           // ⭐ TOASTS
-          toast.success(`Logged in with Google`);
-          toast.message(`Welcome, ${name}!`);
+          toast.success(`Logged in with Google \n Welcome, ${name}!`);
 
           // Send to dashboard
           navigate("/dashboard");
