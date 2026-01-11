@@ -67,19 +67,29 @@ export default function AuthPages({ initialMode = "login" }) {
             email: formData.email,
             name: formData.name,
           });
+
           resetOnToggle();
           setIsSignUp(false);
+
           toast.success(
             "Signup successful. Check your inbox/spam to verify your email."
           );
         }
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email: formData.email,
           password: formData.password,
         });
 
         if (error) throw error;
+
+        const user = data.user;
+        const name =
+          user?.user_metadata?.name || user?.email?.split("@")[0] || "User";
+
+        toast.success(`Logged in as ${user.email}`);
+        toast.message(`Welcome, ${name}!`);
+
         navigate("/dashboard");
       }
     } catch (err: any) {
