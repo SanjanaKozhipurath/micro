@@ -70,7 +70,7 @@ export default function AuthPages({ initialMode = "login" }) {
           resetOnToggle();
           setIsSignUp(false);
           toast.success(
-            "Signup successful. Check your inbox to verify your email."
+            "Signup successful. Check your inbox/spam to verify your email."
           );
         }
       } else {

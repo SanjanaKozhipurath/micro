@@ -85,7 +85,8 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <>
-    <Toaster richColors position="top-right" /> {/* Standalone at root */}
+    <Toaster richColors position="bottom-right" theme="dark" />
+
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <BrowserRouter>
