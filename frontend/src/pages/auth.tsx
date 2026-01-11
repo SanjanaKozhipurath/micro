@@ -88,7 +88,6 @@ export default function AuthPages({ initialMode = "login" }) {
           user?.user_metadata?.name || user?.email?.split("@")[0] || "User";
 
         toast.success(`Logged in ${user.email} \n Welcome, ${name}!`);
-        // Logged out\nYou have successfully logged out");
 
         navigate("/dashboard");
       }
