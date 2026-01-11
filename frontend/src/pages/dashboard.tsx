@@ -73,7 +73,9 @@ export default function Dashboard() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/");
-    toast.success(`Logged out \n You have successfully logged out`);
+    toast.success("Logged out", {
+      description: "You have successfully logged out",
+    });
   };
 
   /* ---------------- ML FETCH LOOP ---------------- */
