@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Mail, Lock, User, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
+import { toast } from "sonner";
 
 export default function AuthPages({ initialMode = "login" }) {
   const [isSignUp, setIsSignUp] = useState(initialMode === "signup");
@@ -23,8 +24,6 @@ export default function AuthPages({ initialMode = "login" }) {
   // show password toggles
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const [showVerifyPopup, setShowVerifyPopup] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -68,15 +67,11 @@ export default function AuthPages({ initialMode = "login" }) {
             email: formData.email,
             name: formData.name,
           });
-
-          // 🚀 Clear form + switch to login
           resetOnToggle();
           setIsSignUp(false);
-
-          // 🎉 Show popup
-          setShowVerifyPopup(true);
-          setShowVerifyPopup(true);
-          setTimeout(() => setShowVerifyPopup(false), 3500);
+          toast.success(
+            "Signup successful. Check your inbox to verify your email."
+          );
         }
       } else {
         const { error } = await supabase.auth.signInWithPassword({
@@ -367,32 +362,6 @@ export default function AuthPages({ initialMode = "login" }) {
               </button>
             </div>
           </div>
-
-          {showVerifyPopup && (
-            <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-              <div className="bg-slate-800 border border-slate-600 rounded-xl p-6 w-80 text-center space-y-4">
-                <h2 className="text-lg font-bold text-white">
-                  Verify Your Email
-                </h2>
-                <p className="text-slate-300 text-sm">
-                  We sent a verification link to:
-                  <br />
-                  <span className="text-teal-400 font-semibold">
-                    {formData.email}
-                  </span>
-                  <br />
-                  Click it to activate your account!
-                </p>
-
-                <button
-                  className="w-full bg-teal-500 hover:bg-teal-600 text-slate-900 font-semibold py-2 rounded-lg transition"
-                  onClick={() => setShowVerifyPopup(false)}
-                >
-                  Okay
-                </button>
-              </div>
-            </div>
-          )}
 
           {/* Footer */}
           <p className="text-center text-slate-400 text-xs mt-6">
