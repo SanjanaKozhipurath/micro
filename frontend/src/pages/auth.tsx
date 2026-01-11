@@ -87,7 +87,8 @@ export default function AuthPages({ initialMode = "login" }) {
         const name =
           user?.user_metadata?.name || user?.email?.split("@")[0] || "User";
 
-        toast.success("Logged out\nYou have successfully logged out");
+        toast.success(`Logged in ${user.email} \n Welcome, ${name}!`);
+        // Logged out\nYou have successfully logged out");
 
         navigate("/dashboard");
       }
